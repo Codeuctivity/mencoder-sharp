@@ -9,25 +9,12 @@ Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "DocumentationMencoderSharp"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MencoderSharpDemoImageToMovie", "MencoderSharpDemoImageToMovie\MencoderSharpDemoImageToMovie.csproj", "{B623F9A3-7CC1-4667-8F85-864FCEFEE37C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestMencoderSharp", "UnitTestMencoderSharp\UnitTestMencoderSharp.csproj", "{E83C0C0B-2D33-4DE3-8C1A-B9D6B27B1BC0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{449E689B-67D2-4259-8E88-158283A6ECE5} = {449E689B-67D2-4259-8E88-158283A6ECE5}
+	EndProjectSection
+EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 5
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://stefan-pc:8080/tfs/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = DocumentationMencoderSharp\\DocumentationMencoderSharp.shfbproj
-		SccProjectName1 = DocumentationMencoderSharp
-		SccLocalPath1 = DocumentationMencoderSharp
-		SccProjectUniqueName2 = MencoderSharp\\MencoderSharp.csproj
-		SccProjectName2 = MencoderSharp
-		SccLocalPath2 = MencoderSharp
-		SccProjectUniqueName3 = MencoderSharpDemo\\MencoderSharpDemo.csproj
-		SccProjectName3 = MencoderSharpDemo
-		SccLocalPath3 = MencoderSharpDemo
-		SccProjectUniqueName4 = MencoderSharpDemoImageToMovie\\MencoderSharpDemoImageToMovie.csproj
-		SccProjectName4 = MencoderSharpDemoImageToMovie
-		SccLocalPath4 = MencoderSharpDemoImageToMovie
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -76,6 +63,16 @@ Global
 		{B623F9A3-7CC1-4667-8F85-864FCEFEE37C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{B623F9A3-7CC1-4667-8F85-864FCEFEE37C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B623F9A3-7CC1-4667-8F85-864FCEFEE37C}.Release|x86.ActiveCfg = Release|Any CPU
+		{E83C0C0B-2D33-4DE3-8C1A-B9D6B27B1BC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E83C0C0B-2D33-4DE3-8C1A-B9D6B27B1BC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E83C0C0B-2D33-4DE3-8C1A-B9D6B27B1BC0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E83C0C0B-2D33-4DE3-8C1A-B9D6B27B1BC0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E83C0C0B-2D33-4DE3-8C1A-B9D6B27B1BC0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E83C0C0B-2D33-4DE3-8C1A-B9D6B27B1BC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E83C0C0B-2D33-4DE3-8C1A-B9D6B27B1BC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E83C0C0B-2D33-4DE3-8C1A-B9D6B27B1BC0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E83C0C0B-2D33-4DE3-8C1A-B9D6B27B1BC0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E83C0C0B-2D33-4DE3-8C1A-B9D6B27B1BC0}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

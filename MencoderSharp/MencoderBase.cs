@@ -29,7 +29,7 @@ namespace MencoderSharp
     /// <summary>
     /// Baseclass for async and syncmencodercalls
     /// </summary>
-    public class MencoderBase
+    public  class MencoderBase
     {
 
         /// <summary>

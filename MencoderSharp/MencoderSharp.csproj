@@ -39,7 +39,8 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>seeland.biz.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -62,10 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="mencoder.exe" />
-    <Content Include="mencoderNewer.exe" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="seeland.biz.snk" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -34,15 +34,26 @@ namespace MencoderSharp
             p.StartInfo.Arguments = "\"" + source.LocalPath + "\" " + videoParameter + " " + audioParameter + " -o \"" + destination.LocalPath + "\"";
             p.Start();
             //nur eins darf synchron gelesen werden!! http://msdn.microsoft.com/de-de/library/system.diagnostics.processstartinfo.redirectstandarderror.aspx
-            string test;
-            test = p.StandardError.ReadToEnd();
+            standardError = p.StandardError.ReadToEnd();
             p.WaitForExit();
             if (p.ExitCode.Equals(0))
                 return true;
             return false;
         }
+        public string standardError;
         // Howto create a Async Method that throws events when finished
         //http://msdn.microsoft.com/en-us/library/e7a34yad.aspx
         // The method to be executed asynchronously.
+
+        /// <summary>
+        /// Mencoders the specified source.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="destination">The destination.</param>
+        /// <returns></returns>
+        public bool encodeToMp4(Uri source, Uri destination)
+        {
+            return mencoder(source, destination, "-vf dsize=16/9,scale=-10:-1,harddup -of lavf -lavfopts format=mp4 -ovc x264 -sws 9 -x264encopts nocabac:level_idc=30:bframes=0:bitrate=512:threads=auto:turbo=1:global_header:threads=auto", "-oac faac -faacopts mpeg=4:object=2:raw:br=128");
+        }
     }
 }
