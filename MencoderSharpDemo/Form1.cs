@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace MencoderSharpDemo
@@ -61,8 +56,8 @@ namespace MencoderSharpDemo
         {
             labelSource.Text = openFileDialog1.FileName;
         }
-        MencoderSharp.MencoderAsync mencoderAsync = new MencoderSharp.MencoderAsync();
 
+        private MencoderSharp.MencoderAsync mencoderAsync = new MencoderSharp.MencoderAsync();
 
         /// <summary>
         /// Handles the Click event of the buttonStart control.
@@ -75,7 +70,6 @@ namespace MencoderSharpDemo
             progressBar1.Visible = true;
             //mencoderAsync.startEncodeAsync(new Uri(labelSource.Text), new Uri(labelDestinationPath.Text), textBoxVideoParameter.Text, textBoxAudioParamter.Text);
             mencoderAsync.startEncodeAsync(new Uri(labelSource.Text), new Uri(labelDestinationPath.Text));
-
         }
 
         /// <summary>
@@ -100,6 +94,7 @@ namespace MencoderSharpDemo
             buttonStart.Enabled = true;
             progressBar1.Visible = false;
         }
+
         /// <summary>
         /// Handles the Progress event of the mencoder control.
         /// </summary>

@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -8,7 +8,6 @@ namespace UnitTestMencoderSharp
     [TestClass]
     public class UnitTest1
     {
-
         [TestMethod]
         public void TestMethodSyncEncode()
         {
@@ -20,7 +19,9 @@ namespace UnitTestMencoderSharp
         {
             return System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
         }
-        bool asyncTaskRunning;
+
+        private bool asyncTaskRunning;
+
         [TestMethod]
         public void TestMethodAsync()
         {
@@ -46,7 +47,9 @@ namespace UnitTestMencoderSharp
         {
             asyncTaskRunning = false;
         }
+
         private TestContext testContextInstance;
+
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.

@@ -10,9 +10,6 @@ using System.Windows.Forms;
 
 namespace MencoderSharpDemoImageToMovie
 {
-
-
-
     /// <summary>
     /// MencoderSharpDemoImageToMovie
     /// </summary>
@@ -67,8 +64,8 @@ namespace MencoderSharpDemoImageToMovie
             }
             labelSource.Text = labelSource.Text.Remove(labelSource.Text.Length - 1, 1);
         }
-        MencoderSharp.MencoderAsync mencoderAsync = new MencoderSharp.MencoderAsync();
 
+        private MencoderSharp.MencoderAsync mencoderAsync = new MencoderSharp.MencoderAsync();
 
         /// <summary>
         /// Handles the Click event of the buttonStart control.
@@ -104,6 +101,7 @@ namespace MencoderSharpDemoImageToMovie
             buttonStart.Enabled = true;
             progressBar1.Visible = false;
         }
+
         /// <summary>
         /// Handles the Progress event of the mencoder control.
         /// </summary>
@@ -115,4 +113,3 @@ namespace MencoderSharpDemoImageToMovie
         }
     }
 }
-

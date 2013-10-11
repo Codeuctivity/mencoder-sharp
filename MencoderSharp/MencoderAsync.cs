@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Diagnostics;
-using System.ComponentModel;
-using System.IO;
 
 namespace MencoderSharp
 {
@@ -18,17 +18,21 @@ namespace MencoderSharp
         /// Contains exitcode of mencoder and everything from standarderror
         /// </summary>
         public string result;
+
         /// <summary>
         /// Contains standardoutput of mencoder, filled asynchron
         /// </summary>
         public string stdOutput;
+
         /// <summary>
         /// Contains prgress paresed from mencoder
         /// </summary>
         public int progress;
+
         //Backgroundworkerdoku:
         //http://msdn.microsoft.com/de-de/library/system.componentmodel.backgroundworker.aspx
         private BackgroundWorker backgroundWorker1 = new BackgroundWorker();
+
         /// <summary>
         /// Starts the encode async with default configuration (16/9, x264@512kbit and faac@128kbit ).
         /// </summary>
@@ -38,6 +42,7 @@ namespace MencoderSharp
         {
             startEncodeAsync(source, destination, "-vf dsize=16/9,scale=-10:-1,harddup -of lavf -lavfopts format=mp4 -ovc x264 -sws 9 -x264encopts nocabac:level_idc=30:bframes=0:bitrate=512:threads=auto:turbo=1:global_header:threads=auto", "-oac faac -faacopts mpeg=4:object=2:raw:br=128");
         }
+
         /// <summary>
         /// returns imediatly after gots called
         /// </summary>
@@ -63,6 +68,7 @@ namespace MencoderSharp
             backgroundWorker1.WorkerReportsProgress = true;
             backgroundWorker1.WorkerSupportsCancellation = true;
         }
+
         /// <summary>
         /// Starts the encode async.
         /// </summary>
@@ -88,6 +94,7 @@ namespace MencoderSharp
             backgroundWorker1.WorkerReportsProgress = true;
             backgroundWorker1.WorkerSupportsCancellation = true;
         }
+
         /// <summary>
         /// Starts the encode async.
         /// </summary>
@@ -115,19 +122,22 @@ namespace MencoderSharp
             backgroundWorker1.WorkerReportsProgress = true;
             backgroundWorker1.WorkerSupportsCancellation = true;
         }
+
         /// <summary>
-        /// cancels the running encodingprocess 
+        /// cancels the running encodingprocess
         /// </summary>
         public void cancelEncodeAsync()
         {
             this.backgroundWorker1.CancelAsync();
         }
+
         //Events without custom args:
         //http://msdn.microsoft.com/en-us/library/ms182178(VS.80).aspx
         /// <summary>
         /// Fires when mencoder is done
         /// </summary>
         public event EventHandler Finished;
+
         /// <summary>
         /// Raises the <see cref="E:Finished" /> event.
         /// </summary>
@@ -139,10 +149,12 @@ namespace MencoderSharp
                 Finished(this, e);
             }
         }
+
         /// <summary>
         /// Fires when progress has changed (progress and stdOutput have changed)
         /// </summary>
         public event EventHandler Progress;
+
         /// <summary>
         /// Raises the <see cref="E:Progress" /> event.
         /// </summary>
@@ -154,6 +166,7 @@ namespace MencoderSharp
                 Progress(this, e);
             }
         }
+
         /// <summary>
         /// Handles the DoWork event of the backgroundWorker1 control.
         /// </summary>
@@ -165,7 +178,7 @@ namespace MencoderSharp
             BackgroundWorker worker = sender as BackgroundWorker;
             // Assign the result of the computation
             // to the Result property of the DoWorkEventArgs
-            // object. This is will be available to the 
+            // object. This is will be available to the
             // RunWorkerCompleted eventhandler.
             MencoderParameters parameter = (MencoderParameters)(e.Argument);
             try
@@ -209,7 +222,6 @@ namespace MencoderSharp
                     p.Close();
                     p.CancelErrorRead();
                     p.Dispose();
-
                 }
             }
             catch (Exception ex)
@@ -218,6 +230,7 @@ namespace MencoderSharp
                 throw;
             }
         }
+
         /// <summary>
         /// Handles the DoWork event of the backgroundWorker2 control.
         /// </summary>
@@ -229,7 +242,7 @@ namespace MencoderSharp
             BackgroundWorker worker = sender as BackgroundWorker;
             // Assign the result of the computation
             // to the Result property of the DoWorkEventArgs
-            // object. This is will be available to the 
+            // object. This is will be available to the
             // RunWorkerCompleted eventhandler.
             List<MencoderParameters> parameters = (List<MencoderParameters>)(e.Argument);
             try
@@ -285,19 +298,22 @@ namespace MencoderSharp
                 throw;
             }
         }
+
         /// <summary>
         /// The standard error
         /// </summary>
         private string standardError;
+
         /// <summary>
         /// Handles the ErrorDataReceived event of the p control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="DataReceivedEventArgs" /> instance containing the event data.</param>
-        void p_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        private void p_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
             standardError += e.Data;
         }
+
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             // First, handle the case where an exception was thrown.
@@ -309,10 +325,12 @@ namespace MencoderSharp
             //OnFinished(new EventArgs());
             OnFinished(e);
         }
+
         /// <summary>
         /// The remember last line
         /// </summary>
         private string rememberLastLine;
+
         /// <summary>
         /// Handles the ProgressChanged event of the backgroundWorker1 control.
         /// </summary>

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Diagnostics;
-using System.ComponentModel;
-using System.IO;
 
 namespace MencoderSharp
 {
@@ -40,7 +34,12 @@ namespace MencoderSharp
                 return true;
             return false;
         }
+
+        /// <summary>
+        /// The standard error
+        /// </summary>
         public string standardError;
+
         // Howto create a Async Method that throws events when finished
         //http://msdn.microsoft.com/en-us/library/e7a34yad.aspx
         // The method to be executed asynchronously.
