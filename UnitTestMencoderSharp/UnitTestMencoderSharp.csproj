@@ -63,9 +63,6 @@
     <Content Include="HelloWorld.avi">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="HelloWorld.wmv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="HelloWorld.xesc" />
   </ItemGroup>
   <Choose>

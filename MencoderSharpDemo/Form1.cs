@@ -68,8 +68,8 @@ namespace MencoderSharpDemo
         {
             buttonStart.Enabled = false;
             progressBar1.Visible = true;
-            //mencoderAsync.startEncodeAsync(new Uri(labelSource.Text), new Uri(labelDestinationPath.Text), textBoxVideoParameter.Text, textBoxAudioParamter.Text);
-            mencoderAsync.startEncodeAsync(new Uri(labelSource.Text), new Uri(labelDestinationPath.Text));
+            mencoderAsync.startEncodeAsync(new Uri(labelSource.Text), new Uri(labelDestinationPath.Text), textBoxVideoParameter.Text, textBoxAudioParamter.Text);
+            //mencoderAsync.startEncodeAsync(new Uri(labelSource.Text), new Uri(labelDestinationPath.Text));
         }
 
         /// <summary>
