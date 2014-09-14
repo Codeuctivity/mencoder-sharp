@@ -90,7 +90,7 @@ namespace MencoderSharpDemo
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void mencoder_Finished(object sender, EventArgs e)
         {
-            richTextBox1.Text = mencoderAsync.result;
+            richTextBox1.Text = mencoderAsync.Result.StandardOutput;
             buttonStart.Enabled = true;
             progressBar1.Visible = false;
         }

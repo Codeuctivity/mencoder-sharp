@@ -1,7 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTestMencoderSharp
 {
@@ -17,7 +17,7 @@ namespace UnitTestMencoderSharp
 
         private static string getDirectoryOfAssembly()
         {
-            return System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
+            return System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         }
 
         private bool asyncTaskRunning;
@@ -35,7 +35,7 @@ namespace UnitTestMencoderSharp
             {
                 Task.Delay(1000);
             }
-            Assert.IsTrue(mencoderAsync.result.Contains("Exitcode"));
+            Assert.IsTrue(mencoderAsync.Result.ExecuteionWasSuccessfull, mencoderAsync.Result.StandardError);
         }
 
         private void mencoder_Progress(object sender, EventArgs e)

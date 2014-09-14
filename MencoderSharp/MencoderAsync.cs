@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
 
 namespace MencoderSharp
 {
@@ -17,15 +13,10 @@ namespace MencoderSharp
         /// <summary>
         /// Contains exitcode of mencoder and everything from standarderror
         /// </summary>
-        public string result;
+        public mencoderResults Result;
 
         /// <summary>
-        /// Contains standardoutput of mencoder, filled asynchron
-        /// </summary>
-        public string stdOutput;
-
-        /// <summary>
-        /// Contains prgress paresed from mencoder
+        /// Contains prgress parsed from mencoder
         /// </summary>
         public int progress;
 
@@ -57,8 +48,7 @@ namespace MencoderSharp
             backgroundWorker1.RunWorkerCompleted += new RunWorkerCompletedEventHandler(backgroundWorker1_RunWorkerCompleted);
             backgroundWorker1.ProgressChanged += new ProgressChangedEventHandler(backgroundWorker1_ProgressChanged);
 
-            result = null;
-            stdOutput = null;
+            Result = new mencoderResults();
             MencoderParameters parameters;
             parameters.source = source.OriginalString;
             parameters.destination = destination.OriginalString;
@@ -83,41 +73,12 @@ namespace MencoderSharp
             backgroundWorker1.RunWorkerCompleted += new RunWorkerCompletedEventHandler(backgroundWorker1_RunWorkerCompleted);
             backgroundWorker1.ProgressChanged += new ProgressChangedEventHandler(backgroundWorker1_ProgressChanged);
 
-            result = null;
-            stdOutput = null;
+            Result = new mencoderResults();
             MencoderParameters parameters;
             parameters.source = source;
             parameters.destination = destination;
             parameters.audioParameter = audioParameter;
             parameters.videoParameter = videoParameter;
-            backgroundWorker1.RunWorkerAsync(parameters);
-            backgroundWorker1.WorkerReportsProgress = true;
-            backgroundWorker1.WorkerSupportsCancellation = true;
-        }
-
-        /// <summary>
-        /// Starts the encode async.
-        /// </summary>
-        /// <param name="sources">The sources.</param>
-        /// <param name="destinations">The destinations.</param>
-        /// <param name="videoParameter">The video parameter.</param>
-        /// <param name="audioParameter">The audio parameter.</param>
-        public void startEncodeAsync(List<Uri> sources, List<Uri> destinations, string videoParameter, string audioParameter)
-        {
-            backgroundWorker1 = new BackgroundWorker();
-            backgroundWorker1.DoWork += new DoWorkEventHandler(backgroundWorker2_DoWork);
-            backgroundWorker1.RunWorkerCompleted += new RunWorkerCompletedEventHandler(backgroundWorker1_RunWorkerCompleted);
-            backgroundWorker1.ProgressChanged += new ProgressChangedEventHandler(backgroundWorker1_ProgressChanged);
-
-            result = null;
-            stdOutput = null;
-            List<MencoderParameters> parameters = new List<MencoderParameters>();
-            int foo = 0;
-            foreach (var source in sources)
-            {
-                parameters.Add(new MencoderParameters { audioParameter = audioParameter, source = source.OriginalString, destination = destinations[foo].OriginalString, videoParameter = videoParameter });
-                foo++;
-            }
             backgroundWorker1.RunWorkerAsync(parameters);
             backgroundWorker1.WorkerReportsProgress = true;
             backgroundWorker1.WorkerSupportsCancellation = true;
@@ -199,26 +160,19 @@ namespace MencoderSharp
                 //nur eins darf synchron gelesen werden!! http://msdn.microsoft.com/de-de/library/system.diagnostics.processstartinfo.redirectstandarderror.aspx
                 p.BeginErrorReadLine();
                 string standardOut;
+                int progressReporting = 0;
                 while (((standardOut = p.StandardOutput.ReadLine()) != null) && (!worker.CancellationPending))
                 {
-                    if (standardOut.StartsWith("Pos:"))
-                    {
-                        string progress = standardOut.Split('(')[1].Substring(0, 2).Trim();
-                        worker.ReportProgress(Convert.ToInt32(progress), standardOut);
-                    }
-                    else
-                    {
-                        worker.ReportProgress(0, standardOut);
-                    }
+                    progressReporting = parseAndReportProgress(worker, standardOut, progressReporting);
                 }
                 if (!worker.CancellationPending)
                 {
                     p.WaitForExit();
-                    e.Result = "Mencoder Exited with the Exitcode: " + p.ExitCode.ToString() + "\n" + standardError;
+                    e.Result = new mencoderResults { Exitcode = p.ExitCode, StandardError = standardError, ExecuteionWasSuccessfull = (p.ExitCode == 0), StandardOutput = standardOut };
                 }
                 else
                 {
-                    e.Result = "Canceld!";
+                    e.Result = new mencoderResults { Exitcode = 99, StandardError = standardError, ExecuteionWasSuccessfull = false, StandardOutput = standardOut };
                     p.Close();
                     p.CancelErrorRead();
                     p.Dispose();
@@ -226,77 +180,27 @@ namespace MencoderSharp
             }
             catch (Exception ex)
             {
-                e.Result = ex.Message;
-                throw;
+                e.Result = new mencoderResults { Exitcode = 99, StandardError = standardError, ExecuteionWasSuccessfull = false, StandardOutput = ex.Message };
             }
         }
 
-        /// <summary>
-        /// Handles the DoWork event of the backgroundWorker2 control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="DoWorkEventArgs" /> instance containing the event data.</param>
-        private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
+        private static int parseAndReportProgress(BackgroundWorker worker, string standardOut, int progressReporting)
         {
-            // Get the BackgroundWorker that raised this event.
-            BackgroundWorker worker = sender as BackgroundWorker;
-            // Assign the result of the computation
-            // to the Result property of the DoWorkEventArgs
-            // object. This is will be available to the
-            // RunWorkerCompleted eventhandler.
-            List<MencoderParameters> parameters = (List<MencoderParameters>)(e.Argument);
-            try
+            if (standardOut.StartsWith("Pos:"))
             {
-                int alreadyDoneSubJobs = 0;
-                foreach (var parameter in parameters)
-                {
-                    Process p = new Process();
-                    //Asynchron read of standardoutput:
-                    //http://msdn.microsoft.com/de-de/library/system.diagnostics.process.beginoutputreadline.aspx
-                    p.ErrorDataReceived += new DataReceivedEventHandler(p_ErrorDataReceived);
-                    p.StartInfo.FileName = @"mencoder.exe";
-                    //http://msdn.microsoft.com/de-de/library/system.diagnostics.processstartinfo.redirectstandardoutput.aspx
-                    p.StartInfo.RedirectStandardOutput = true;
-                    p.StartInfo.RedirectStandardError = true;
-                    p.StartInfo.UseShellExecute = false;
-                    p.StartInfo.CreateNoWindow = true;
-                    p.StartInfo.Arguments = "\"" + parameter.source + "\" " + parameter.videoParameter + " " + parameter.audioParameter + " -o \"" + parameter.destination + "\"";
-                    p.Start();
-                    //nur eins darf synchron gelesen werden!! http://msdn.microsoft.com/de-de/library/system.diagnostics.processstartinfo.redirectstandarderror.aspx
-                    p.BeginErrorReadLine();
-                    string standardOut;
-                    while (((standardOut = p.StandardOutput.ReadLine()) != null) && (!worker.CancellationPending))
+                int progress1 = 0;
+                if (int.TryParse(standardOut.Split('(')[1].Substring(0, 2).Trim(), out progress1))
+                    if (progress1 > progressReporting)
                     {
-                        if (standardOut.StartsWith("Pos:"))
-                        {
-                            string progress = standardOut.Split('(')[1].Substring(0, 2).Trim();
-                            worker.ReportProgress(Convert.ToInt32(progress) / parameters.Count + 100 / alreadyDoneSubJobs, standardOut);
-                        }
-                        else
-                        {
-                            worker.ReportProgress(0, standardOut);
-                        }
+                        progressReporting = progress1;
+                        worker.ReportProgress(progressReporting, standardOut);
                     }
-                    if (!worker.CancellationPending)
-                    {
-                        p.WaitForExit();
-                        e.Result = "Mencoder Exited with the Exitcode: " + p.ExitCode.ToString() + "\n" + standardError;
-                    }
-                    else
-                    {
-                        e.Result = "Canceld!";
-                        p.Close();
-                        p.CancelErrorRead();
-                        p.Dispose();
-                    }
-                    alreadyDoneSubJobs++;
-                }
             }
-            catch (Exception ex)
+            else
             {
-                e.Result = ex.Message;
-                throw;
+                worker.ReportProgress(progressReporting, standardOut);
             }
+            return progressReporting;
         }
 
         /// <summary>
@@ -321,8 +225,7 @@ namespace MencoderSharp
             {
                 throw e.Error;
             }
-            result = (string)e.Result;
-            //OnFinished(new EventArgs());
+            Result = (mencoderResults)e.Result;
             OnFinished(e);
         }
 
@@ -330,6 +233,8 @@ namespace MencoderSharp
         /// The remember last line
         /// </summary>
         private string rememberLastLine;
+
+        public bool successFullEncoded = false;
 
         /// <summary>
         /// Handles the ProgressChanged event of the backgroundWorker1 control.
@@ -342,18 +247,18 @@ namespace MencoderSharp
             progress = e.ProgressPercentage;
             if (progress == 0)
             {
-                stdOutput += userstate + "\n";
+                standardError += userstate + "\n";
             }
             else
             {
                 if (rememberLastLine == null)
                 {
                     rememberLastLine = userstate;
-                    stdOutput += userstate + "\n";
+                    standardError += userstate + "\n";
                 }
                 else
                 {
-                    stdOutput = stdOutput.Replace(rememberLastLine, userstate);
+                    standardError = standardError.Replace(rememberLastLine, userstate);
                     rememberLastLine = userstate;
                 }
             }
