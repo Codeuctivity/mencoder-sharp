@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>$id$</id>
-    <version>1.1.0-Beta</version>
+    <version>1.1.1-Beta</version>
     <title>$id$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
@@ -17,8 +17,11 @@
       Changelog: https://code.google.com/p/mencoder-sharp/source/list
     </summary>
     <releaseNotes>
+      1.1.0-Beta
       Dropped method which accepts List of sources to encode
       Added Property ExecuteionWasSuccessfull to result
+      1.1.1-Beta
+      Signed assembly
     </releaseNotes>
     <tags>.net reencode mencoder multimedia convert ffmpeg mp4 xvid</tags>
   </metadata>
