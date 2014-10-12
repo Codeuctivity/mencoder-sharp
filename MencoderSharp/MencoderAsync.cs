@@ -11,18 +11,48 @@ namespace MencoderSharp
     public class MencoderAsync : MencoderBase
     {
         /// <summary>
-        /// Contains exitcode of mencoder and everything from standarderror
-        /// </summary>
-        public mencoderResults Result;
-
-        /// <summary>
         /// Contains prgress parsed from mencoder
         /// </summary>
         public int progress;
 
+        /// <summary>
+        /// Contains exitcode of mencoder and everything from standarderror
+        /// </summary>
+        public mencoderResults Result;
+
         //Backgroundworkerdoku:
         //http://msdn.microsoft.com/de-de/library/system.componentmodel.backgroundworker.aspx
         private BackgroundWorker backgroundWorker1 = new BackgroundWorker();
+
+        /// <summary>
+        /// The remember last line
+        /// </summary>
+        private string rememberLastLine;
+
+        /// <summary>
+        /// The standard error
+        /// </summary>
+        private string standardError;
+
+        //Events without custom args:
+        //http://msdn.microsoft.com/en-us/library/ms182178(VS.80).aspx
+        /// <summary>
+        /// Fires when mencoder is done
+        /// </summary>
+        public event EventHandler Finished;
+
+        /// <summary>
+        /// Fires when progress has changed (progress and stdOutput have changed)
+        /// </summary>
+        public event EventHandler Progress;
+
+        /// <summary>
+        /// cancels the running encodingprocess
+        /// </summary>
+        public void cancelEncodeAsync()
+        {
+            this.backgroundWorker1.CancelAsync();
+        }
 
         /// <summary>
         /// Starts the encode async with default configuration (16/9, x264@512kbit and faac@128kbit ).
@@ -85,21 +115,6 @@ namespace MencoderSharp
         }
 
         /// <summary>
-        /// cancels the running encodingprocess
-        /// </summary>
-        public void cancelEncodeAsync()
-        {
-            this.backgroundWorker1.CancelAsync();
-        }
-
-        //Events without custom args:
-        //http://msdn.microsoft.com/en-us/library/ms182178(VS.80).aspx
-        /// <summary>
-        /// Fires when mencoder is done
-        /// </summary>
-        public event EventHandler Finished;
-
-        /// <summary>
         /// Raises the <see cref="E:Finished" /> event.
         /// </summary>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
@@ -112,11 +127,6 @@ namespace MencoderSharp
         }
 
         /// <summary>
-        /// Fires when progress has changed (progress and stdOutput have changed)
-        /// </summary>
-        public event EventHandler Progress;
-
-        /// <summary>
         /// Raises the <see cref="E:Progress" /> event.
         /// </summary>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
@@ -126,6 +136,25 @@ namespace MencoderSharp
             {
                 Progress(this, e);
             }
+        }
+
+        private static int parseAndReportProgress(BackgroundWorker worker, string standardOut, int progressReporting)
+        {
+            if (standardOut.StartsWith("Pos:"))
+            {
+                int progress1 = 0;
+                if (int.TryParse(standardOut.Split('(')[1].Substring(0, 2).Trim(), out progress1))
+                    if (progress1 > progressReporting)
+                    {
+                        progressReporting = progress1;
+                        worker.ReportProgress(progressReporting, standardOut);
+                    }
+            }
+            else
+            {
+                worker.ReportProgress(progressReporting, standardOut);
+            }
+            return progressReporting;
         }
 
         /// <summary>
@@ -184,58 +213,6 @@ namespace MencoderSharp
             }
         }
 
-        private static int parseAndReportProgress(BackgroundWorker worker, string standardOut, int progressReporting)
-        {
-            if (standardOut.StartsWith("Pos:"))
-            {
-                int progress1 = 0;
-                if (int.TryParse(standardOut.Split('(')[1].Substring(0, 2).Trim(), out progress1))
-                    if (progress1 > progressReporting)
-                    {
-                        progressReporting = progress1;
-                        worker.ReportProgress(progressReporting, standardOut);
-                    }
-            }
-            else
-            {
-                worker.ReportProgress(progressReporting, standardOut);
-            }
-            return progressReporting;
-        }
-
-        /// <summary>
-        /// The standard error
-        /// </summary>
-        private string standardError;
-
-        /// <summary>
-        /// Handles the ErrorDataReceived event of the p control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="DataReceivedEventArgs" /> instance containing the event data.</param>
-        private void p_ErrorDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            standardError += e.Data;
-        }
-
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            // First, handle the case where an exception was thrown.
-            if (e.Error != null)
-            {
-                throw e.Error;
-            }
-            Result = (mencoderResults)e.Result;
-            OnFinished(e);
-        }
-
-        /// <summary>
-        /// The remember last line
-        /// </summary>
-        private string rememberLastLine;
-
-        public bool successFullEncoded = false;
-
         /// <summary>
         /// Handles the ProgressChanged event of the backgroundWorker1 control.
         /// </summary>
@@ -263,6 +240,27 @@ namespace MencoderSharp
                 }
             }
             OnProgress(EventArgs.Empty);
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            // First, handle the case where an exception was thrown.
+            if (e.Error != null)
+            {
+                throw e.Error;
+            }
+            Result = (mencoderResults)e.Result;
+            OnFinished(e);
+        }
+
+        /// <summary>
+        /// Handles the ErrorDataReceived event of the p control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataReceivedEventArgs" /> instance containing the event data.</param>
+        private void p_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            standardError += e.Data;
         }
     }
 }

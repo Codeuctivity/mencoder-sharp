@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>$id$</id>
-    <version>1.1.1-Beta</version>
+    <version>1.1.2-Beta</version>
     <title>$id$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
@@ -22,6 +22,8 @@
       Added Property ExecuteionWasSuccessfull to result
       1.1.1-Beta
       Signed assembly
+      1.1.2-Beta
+      Removed dead property "successFullEncoded" - moved to "Result.ExecuteionWasSuccessfull"
     </releaseNotes>
     <tags>.net reencode mencoder multimedia convert ffmpeg mp4 xvid</tags>
   </metadata>
