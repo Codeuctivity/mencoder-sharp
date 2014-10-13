@@ -35,7 +35,7 @@ namespace UnitTestMencoderSharp
             {
                 Task.Delay(1000);
             }
-            Assert.IsTrue(mencoderAsync.Result.ExecuteionWasSuccessfull, mencoderAsync.Result.StandardError);
+            Assert.IsTrue(mencoderAsync.Result.ExecutionWasSuccessfull, mencoderAsync.Result.StandardError);
         }
 
         private void mencoder_Progress(object sender, EventArgs e)

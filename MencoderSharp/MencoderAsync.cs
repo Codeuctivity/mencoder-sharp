@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 
@@ -197,11 +196,11 @@ namespace MencoderSharp
                 if (!worker.CancellationPending)
                 {
                     p.WaitForExit();
-                    e.Result = new mencoderResults { Exitcode = p.ExitCode, StandardError = standardError, ExecuteionWasSuccessfull = (p.ExitCode == 0), StandardOutput = standardOut };
+                    e.Result = new mencoderResults { Exitcode = p.ExitCode, StandardError = standardError, ExecutionWasSuccessfull = (p.ExitCode == 0), StandardOutput = standardOut };
                 }
                 else
                 {
-                    e.Result = new mencoderResults { Exitcode = 99, StandardError = standardError, ExecuteionWasSuccessfull = false, StandardOutput = standardOut };
+                    e.Result = new mencoderResults { Exitcode = 99, StandardError = standardError, ExecutionWasSuccessfull = false, StandardOutput = standardOut };
                     p.Close();
                     p.CancelErrorRead();
                     p.Dispose();
@@ -209,7 +208,7 @@ namespace MencoderSharp
             }
             catch (Exception ex)
             {
-                e.Result = new mencoderResults { Exitcode = 99, StandardError = standardError, ExecuteionWasSuccessfull = false, StandardOutput = ex.Message };
+                e.Result = new mencoderResults { Exitcode = 99, StandardError = standardError, ExecutionWasSuccessfull = false, StandardOutput = ex.Message };
             }
         }
 

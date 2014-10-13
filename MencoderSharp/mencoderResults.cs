@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace MencoderSharp
+﻿namespace MencoderSharp
 {
     public class mencoderResults
     {
-        public bool ExecuteionWasSuccessfull;
+        public bool ExecutionWasSuccessfull;
         public string StandardOutput;
         public string StandardError;
         public int Exitcode;
