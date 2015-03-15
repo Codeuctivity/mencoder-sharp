@@ -5,7 +5,7 @@ You need to decode, encode or do some processing stuff on multimedia streams, fi
 
 Nugetpackage published: Install-Package MencoderSharp 
 
-Documentation @Nudoq Watch the demo: http://mencoder-sharp.googlecode.com/files/MencoderSharpDemo.wmv  
+Documentation @Nudoq Watch the demo: https://github.com/stesee/mencoder-sharp/releases/download/untagged-526dd962a0a4c202b73a/MencoderSharpDemo.wmv
 
 Features: 
 •Synchron or Asynchron executing 
