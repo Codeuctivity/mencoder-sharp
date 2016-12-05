@@ -134,7 +134,7 @@
             this.textBoxAudioParamter.Name = "textBoxAudioParamter";
             this.textBoxAudioParamter.Size = new System.Drawing.Size(377, 20);
             this.textBoxAudioParamter.TabIndex = 8;
-            this.textBoxAudioParamter.Text = "-oac faac -faacopts mpeg=4:object=2:raw:br=128";
+            this.textBoxAudioParamter.Text = "-oac mp3lame";
             // 
             // progressBar1
             // 

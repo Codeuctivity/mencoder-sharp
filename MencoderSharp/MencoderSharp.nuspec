@@ -2,12 +2,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>$id$</id>
-    <version>1.1.4</version>
+    <version>1.1.6</version>
     <title>$id$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <licenseUrl>http://www.gnu.org/licenses/gpl.html</licenseUrl>
-    <projectUrl>http://code.google.com/p/mencoder-sharp/</projectUrl>
+    <licenseUrl>https://www.gnu.org/licenses/agpl.html</licenseUrl>
+    <projectUrl>https://github.com/Codeuctivity/mencoder-sharp</projectUrl>
     <iconUrl>https://avatars3.githubusercontent.com/u/8453155?v=2&amp;s=200</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>$description$</description>
@@ -28,6 +28,11 @@
       Publishing as stable
       1.1.4
       Typo
+      1.1.5
+      Fixed Bug which can cause exceptions on finishing encoding
+      1.1.6
+      Mencoder Bin updated to MPlayer r37905 for 32-bit Windows
+      Fixed - Progress isn't reported for mp4 files
     </releaseNotes>
     <tags>.net reencode mencoder multimedia convert ffmpeg mp4 xvid</tags>
   </metadata>

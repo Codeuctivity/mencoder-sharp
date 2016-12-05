@@ -35,12 +35,31 @@ namespace UnitTestMencoderSharp
             {
                 Task.Delay(1000);
             }
+            Assert.IsTrue(progress > 0);
             Assert.IsTrue(mencoderAsync.Result.ExecutionWasSuccessfull, mencoderAsync.Result.StandardError);
         }
 
+        [TestMethod]
+        public void TestMethodAsyncMp4AsSource()
+        {
+            asyncTaskRunning = false;
+            MencoderSharp.MencoderAsync mencoderAsync = new MencoderSharp.MencoderAsync();
+            mencoderAsync.Finished += new EventHandler(this.mencoder_Finished);
+            mencoderAsync.Progress += new EventHandler(this.mencoder_Progress);
+            mencoderAsync.startEncodeAsync(new Uri(getDirectoryOfAssembly() + "\\small.mp4"), new Uri(testContextInstance.ResultsDirectory + "\\SmallTestOutput.mp4"));
+            asyncTaskRunning = true;
+            while (asyncTaskRunning)
+            {
+                Task.Delay(1000);
+            }
+            Assert.IsTrue(progress > 0);
+            Assert.IsTrue(mencoderAsync.Result.ExecutionWasSuccessfull, mencoderAsync.Result.StandardError);
+        }
+        int progress=0;
         private void mencoder_Progress(object sender, EventArgs e)
         {
-            // throw new NotImplementedException();
+            var infos = (MencoderSharp.MencoderAsync)sender;
+            progress = infos.progress;
         }
 
         private void mencoder_Finished(object sender, EventArgs e)
