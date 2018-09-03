@@ -1,3 +1,6 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/xmx1t9ieuxqjeeh8?svg=true)](https://ci.appveyor.com/project/stesee/mencoder-sharp)
+
+
 # mencoder-sharp
 Automatically exported from code.google.com/p/mencoder-sharp
 
