@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Reflection;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTestMencoderSharp
 {
@@ -55,7 +55,9 @@ namespace UnitTestMencoderSharp
             Assert.IsTrue(progress > 0);
             Assert.IsTrue(mencoderAsync.Result.ExecutionWasSuccessfull, mencoderAsync.Result.StandardError);
         }
-        int progress=0;
+
+        private int progress = 0;
+
         private void mencoder_Progress(object sender, EventArgs e)
         {
             var infos = (MencoderSharp.MencoderAsync)sender;

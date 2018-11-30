@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MencoderSharp", "MencoderSharp\MencoderSharp.csproj", "{449E689B-67D2-4259-8E88-158283A6ECE5}"
 EndProject
@@ -18,6 +18,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		NuGet.exe = NuGet.exe
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MencoderSharp2", "MencoderSharp2\MencoderSharp2.csproj", "{FB3D1A9E-FC45-45D4-B69D-B89809940E99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestMencoder2", "XUnitTestMencoder2\XUnitTestMencoder2.csproj", "{E85D7814-1343-4CA8-AFA2-5427701F4C7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,9 +74,36 @@ Global
 		{E83C0C0B-2D33-4DE3-8C1A-B9D6B27B1BC0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{E83C0C0B-2D33-4DE3-8C1A-B9D6B27B1BC0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E83C0C0B-2D33-4DE3-8C1A-B9D6B27B1BC0}.Release|x86.ActiveCfg = Release|Any CPU
+		{FB3D1A9E-FC45-45D4-B69D-B89809940E99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB3D1A9E-FC45-45D4-B69D-B89809940E99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB3D1A9E-FC45-45D4-B69D-B89809940E99}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FB3D1A9E-FC45-45D4-B69D-B89809940E99}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FB3D1A9E-FC45-45D4-B69D-B89809940E99}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FB3D1A9E-FC45-45D4-B69D-B89809940E99}.Debug|x86.Build.0 = Debug|Any CPU
+		{FB3D1A9E-FC45-45D4-B69D-B89809940E99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB3D1A9E-FC45-45D4-B69D-B89809940E99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB3D1A9E-FC45-45D4-B69D-B89809940E99}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FB3D1A9E-FC45-45D4-B69D-B89809940E99}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FB3D1A9E-FC45-45D4-B69D-B89809940E99}.Release|x86.ActiveCfg = Release|Any CPU
+		{FB3D1A9E-FC45-45D4-B69D-B89809940E99}.Release|x86.Build.0 = Release|Any CPU
+		{E85D7814-1343-4CA8-AFA2-5427701F4C7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E85D7814-1343-4CA8-AFA2-5427701F4C7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E85D7814-1343-4CA8-AFA2-5427701F4C7A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E85D7814-1343-4CA8-AFA2-5427701F4C7A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E85D7814-1343-4CA8-AFA2-5427701F4C7A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E85D7814-1343-4CA8-AFA2-5427701F4C7A}.Debug|x86.Build.0 = Debug|Any CPU
+		{E85D7814-1343-4CA8-AFA2-5427701F4C7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E85D7814-1343-4CA8-AFA2-5427701F4C7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E85D7814-1343-4CA8-AFA2-5427701F4C7A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E85D7814-1343-4CA8-AFA2-5427701F4C7A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E85D7814-1343-4CA8-AFA2-5427701F4C7A}.Release|x86.ActiveCfg = Release|Any CPU
+		{E85D7814-1343-4CA8-AFA2-5427701F4C7A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1F26A66F-118D-4780-B439-227AC4EB5144}
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
