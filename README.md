@@ -10,19 +10,19 @@ Nugetpackage published: Install-Package MencoderSharp
 
 Documentation @Nudoq Watch the demo: https://github.com/stesee/mencoder-sharp/releases/download/untagged-526dd962a0a4c202b73a/MencoderSharpDemo.wmv
 
-Features: 
-•Synchron or Asynchron executing 
-•No Gui-Freezing in Asyncmode 
-•Progress recognition of mencoder 
-•Works on Win32 & Win64 
-•Tested@ Win xp, Vista, 7 & 8 
-•mp4 / h.264 works fine 
-•Streaming source from ftp ... 
+Features:
+* Synchron or Asynchron executing 
+* No Gui-Freezing in Asyncmode 
+* Progress recognition of mencoder 
+* Works on Win32 & Win64  
+* mp4 / h.264 works fine 
+* Streaming source from ftp, http, ... 
 
 
 Sample: 
-MencoderSharp.MencoderAsync mencoderAsync = new MencoderSharp.MencoderAsync();
-private void buttonStart_Click(object sender, EventArgs e)
+```language-csharp
+        MencoderSharp.MencoderAsync mencoderAsync = new MencoderSharp.MencoderAsync();
+        private void buttonStart_Click(object sender, EventArgs e)
         {
             mencoderAsync.startEncodeAsync(@"c:\examplevideo.wmv", @"c:\encodedVideo.avi", textBoxVideoParameter.Text, textBoxAudioParamter.Text);
         }
@@ -42,5 +42,5 @@ private void buttonStart_Click(object sender, EventArgs e)
             progressBar1.Value = mencoderAsync.progress;
         }
     }
-
+```
 See http://debianisttoll.blogspot.com/2013/03/create-mp4-with-c.html http://debianisttoll.blogspot.com/2013/03/create-mp4-with-c.html to learn how to create mp4s with mencodersharp. 
