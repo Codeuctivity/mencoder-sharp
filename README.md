@@ -2,12 +2,17 @@
 
 
 # mencoder-sharp
-Automatically exported from code.google.com/p/mencoder-sharp
-
 You need to decode, encode or do some processing stuff on multimedia streams, files or whatever mencoder can read? You want to implement your solution in C# or some other .net language? Here you are! This is an assembly which wrappes calls to e.g. reencode some source with a other codec. 
 
-Nugetpackage published: Install-Package MencoderSharp 
-
+Nugetpackage
+Version for .net 4 - [MencoderSharp](https://www.nuget.org/packages/MencoderSharp/): 
+```
+Install-Package MencoderSharp
+```
+Version for .net standard - [MencoderSharp2](https://www.nuget.org/packages/MencoderSharp2/): 
+```
+Install-Package MencoderSharp2
+```
 Documentation @Nudoq Watch the demo: https://github.com/stesee/mencoder-sharp/releases/download/untagged-526dd962a0a4c202b73a/MencoderSharpDemo.wmv
 
 Features:
@@ -43,3 +48,5 @@ Sample:
         }    
 ```
 See http://debianisttoll.blogspot.com/2013/03/create-mp4-with-c.html http://debianisttoll.blogspot.com/2013/03/create-mp4-with-c.html to learn how to create mp4s with mencodersharp. 
+
+Old Repository: code.google.com/p/mencoder-sharp
