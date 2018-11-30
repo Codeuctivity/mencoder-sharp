@@ -20,11 +20,11 @@ Features:
 
 
 Sample: 
-```language-csharp
+```C#
         MencoderSharp.MencoderAsync mencoderAsync = new MencoderSharp.MencoderAsync();
         private void buttonStart_Click(object sender, EventArgs e)
         {
-            mencoderAsync.startEncodeAsync(@"c:\examplevideo.wmv", @"c:\encodedVideo.avi", textBoxVideoParameter.Text, textBoxAudioParamter.Text);
+            mencoderAsync.startEncodeAsync(@"c:\inputVideo.wmv", @"c:\outputVideo.mp4");
         }
 
         private void MencoderSharpDemo_Load(object sender, EventArgs e)
@@ -40,7 +40,6 @@ Sample:
         private void mencoder_Progress(object sender, EventArgs e)
         {
             progressBar1.Value = mencoderAsync.progress;
-        }
-    }
+        }    
 ```
 See http://debianisttoll.blogspot.com/2013/03/create-mp4-with-c.html http://debianisttoll.blogspot.com/2013/03/create-mp4-with-c.html to learn how to create mp4s with mencodersharp. 
