@@ -13,7 +13,8 @@ Version for .net standard - [MencoderSharp2](https://www.nuget.org/packages/Menc
 ```
 Install-Package MencoderSharp2
 ```
-Documentation @Nudoq Watch the demo: https://github.com/stesee/mencoder-sharp/releases/download/untagged-526dd962a0a4c202b73a/MencoderSharpDemo.wmv
+Documentation [@Nudoq](http://www.nudoq.org/#!/Packages/MencoderSharp/MencoderSharp/Mencoder/M/encodeToMp4)
+Watch the [demo](https://github.com/stesee/mencoder-sharp/releases/download/untagged-526dd962a0a4c202b73a/MencoderSharpDemo.wmv)
 
 Features:
 * Synchron or Asynchron executing 
@@ -47,6 +48,6 @@ private void mencoder_Progress(object sender, EventArgs e)
     progressBar1.Value = mencoderAsync.progress;
 }    
 ```
-See http://debianisttoll.blogspot.com/2013/03/create-mp4-with-c.html http://debianisttoll.blogspot.com/2013/03/create-mp4-with-c.html to learn how to create mp4s with mencodersharp. 
+See http://debianisttoll.blogspot.com/2013/03/create-mp4-with-c.html to see how to create mp4s with mencodersharp. 
 
-Old Repository: code.google.com/p/mencoder-sharp
+Old Repository: http://code.google.com/p/mencoder-sharp
