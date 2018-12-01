@@ -26,26 +26,26 @@ Features:
 
 Sample: 
 ```C#
-        MencoderSharp.MencoderAsync mencoderAsync = new MencoderSharp.MencoderAsync();
-        private void buttonStart_Click(object sender, EventArgs e)
-        {
-            mencoderAsync.startEncodeAsync(@"c:\inputVideo.wmv", @"c:\outputVideo.mp4");
-        }
+MencoderSharp.MencoderAsync mencoderAsync = new MencoderSharp.MencoderAsync();
+private void buttonStart_Click(object sender, EventArgs e)
+{
+    mencoderAsync.startEncodeAsync(@"c:\inputVideo.wmv", @"c:\outputVideo.mp4");
+}
 
-        private void MencoderSharpDemo_Load(object sender, EventArgs e)
-        {
-            mencoderAsync.Finished += new EventHandler(this.mencoder_Finished);
-            mencoderAsync.Progress += new EventHandler(this.mencoder_Progress);
-        }
+private void MencoderSharpDemo_Load(object sender, EventArgs e)
+{
+    mencoderAsync.Finished += new EventHandler(this.mencoder_Finished);
+    mencoderAsync.Progress += new EventHandler(this.mencoder_Progress);
+}
 
-        private void mencoder_Finished(object sender, EventArgs e)
-        {
-            richTextBox1.Text = mencoderAsync.result;
-        }
-        private void mencoder_Progress(object sender, EventArgs e)
-        {
-            progressBar1.Value = mencoderAsync.progress;
-        }    
+private void mencoder_Finished(object sender, EventArgs e)
+{
+    richTextBox1.Text = mencoderAsync.result;
+}
+private void mencoder_Progress(object sender, EventArgs e)
+{
+    progressBar1.Value = mencoderAsync.progress;
+}    
 ```
 See http://debianisttoll.blogspot.com/2013/03/create-mp4-with-c.html http://debianisttoll.blogspot.com/2013/03/create-mp4-with-c.html to learn how to create mp4s with mencodersharp. 
 
