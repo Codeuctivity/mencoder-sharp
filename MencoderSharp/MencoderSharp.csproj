@@ -1,18 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProductVersion>8.0.30703</ProductVersion>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
     <AssemblyTitle>MencoderSharp</AssemblyTitle>
     <Company>Stefan Seeland</Company>
     <Product>MencoderSharp</Product>
     <Description>You need to decode, encode or do some processing stuff on multimedia streams, files or whatever mencoder can read? You want to implement your solution in C# or some other .net language? Here you are! This is an assembly which wrappes calls to e.g. reencode some source with a other codec.</Description>
     <Copyright>Copyright ©  2010 GPLv3</Copyright>
     <Deterministic>false</Deterministic>
-    <Version>1.1.7</Version>
+    <Version>2.0.0</Version>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -21,22 +16,7 @@
     <PackageLicenseUrl>https://www.gnu.org/licenses/agpl.html</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Codeuctivity/mencoder-sharp</PackageProjectUrl>
     <PackageReleaseNotes>
-      1.1.0-Beta
-      Dropped method which accepts List of sources to encode
-      Added Property ExecutionWasSuccessfull to result
-      1.1.1-Beta
-      Signed assembly
-      1.1.2-Beta
-      Removed dead property "successFullEncoded" - moved to "Result.ExecutionWasSuccessfull"
-      1.1.3
-      Publishing as stable
-      1.1.4
-      Typo
-      1.1.5
-      Fixed Bug which can cause exceptions on finishing encoding
-      1.1.6
-      Mencoder Bin updated to MPlayer r37905 for 32-bit Windows
-      Fixed - Progress isn't reported for mp4 files
+    Migrated to .net standard and added linux support
     </PackageReleaseNotes>
     <PackageTags>.net reencode mencoder multimedia convert ffmpeg mp4 xvid</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>

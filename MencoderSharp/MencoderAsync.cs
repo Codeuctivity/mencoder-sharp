@@ -19,7 +19,7 @@ namespace MencoderSharp
         /// </summary>
         public mencoderResults Result;
 
-        //Backgroundworkerdoku:
+        //Backgroundworkerdocs:
         //http://msdn.microsoft.com/de-de/library/system.componentmodel.backgroundworker.aspx
         private BackgroundWorker backgroundWorker1 = new BackgroundWorker();
 
@@ -72,7 +72,7 @@ namespace MencoderSharp
         /// <param name="audioParameter">The audio parameter.</param>
         public void startEncodeAsync(string source, string destination, string videoParameter, string audioParameter)
         {
-            MencoderParameters mencoderParameter = new MencoderParameters();
+            var mencoderParameter = new MencoderParameters();
             this.backgroundWorker1 = new BackgroundWorker();
             this.backgroundWorker1.DoWork += new DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.RunWorkerCompleted += new RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
