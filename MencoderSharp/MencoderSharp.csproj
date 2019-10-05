@@ -1,6 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyTitle>MencoderSharp</AssemblyTitle>
     <Company>Stefan Seeland</Company>
     <Product>MencoderSharp</Product>
@@ -15,11 +17,12 @@
     <PackageIconUrl>https://avatars3.githubusercontent.com/u/8453155?v=2&amp;s=200</PackageIconUrl>
     <PackageLicenseUrl>https://www.gnu.org/licenses/agpl.html</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Codeuctivity/mencoder-sharp</PackageProjectUrl>
-    <PackageReleaseNotes>
-    Migrated to .net standard and added linux support
-    </PackageReleaseNotes>
+    <PackageReleaseNotes>Migrated to .net standard and added linux support</PackageReleaseNotes>
     <PackageTags>.net reencode mencoder multimedia convert ffmpeg mp4 xvid</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <!-- <SignAssembly>true</SignAssembly> -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
