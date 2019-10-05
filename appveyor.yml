@@ -1,0 +1,21 @@
+version: 1.2.{build}
+image: Visual Studio 2017
+configuration: Release
+- ps: >-
+    nuget restore
+
+    . "C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.7.2 Tools\x64\sn.exe" -k ./MencoderSharp/MencoderSharp.snk
+build:
+  verbosity: minimal
+artifacts:
+- path: '**\Mencoder*.nupkg'
+  name: NugetPackage
+- path: MencoderSharpDemo\bin\Release
+  name: DemoApplication
+deploy:
+- provider: GitHub
+  auth_token:
+    secure: b8vU0PhyLjyNdrWX81bl3FeKGgzw9OuRRr8kKpy3vxjZNmpTahsIY6JjVGxJzV0M
+- provider: NuGet
+  api_key:
+    secure: uam/dXnhJv544YdAQNP+mKC9fkL7UFQydK/55TWjozWEswDWNUBh/Mq/WLv8Fa8U
