@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace MencoderSharp
 {
@@ -27,32 +29,39 @@ namespace MencoderSharp
     /// </summary>
     public abstract class MencoderBase
     {
+        private bool customMencoderLocation;
+
         /// <summary>
         /// The path to mencoder exe
         /// </summary>
-        internal string pathToMencoderExe;
+        internal string pathToExternalMencoderBin;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MencoderAsync"/> class.
         /// </summary>
         public MencoderBase()
         {
-            pathToMencoderExe = getPathToMencoderBin();
+            pathToExternalMencoderBin = getPathToMencoderBin();
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MencoderAsync"/> class.
         /// </summary>
-        /// <param name="pathToExternalMencoderExe">The path to external mencoder exe.</param>
-        public MencoderBase(string pathToExternalMencoderExe)
-        { pathToMencoderExe = pathToExternalMencoderExe; }
+        /// <param name="pathToExternalMencoderBin">The path to external mencoder bin.</param>
+        public MencoderBase(string pathToExternalMencoderBin)
+        {
+            customMencoderLocation = true;
+            this.pathToExternalMencoderBin = pathToExternalMencoderBin;
+        }
 
         /// <summary>
         /// Finalizes an instance of the <see cref="MencoderAsync"/> class.
         /// </summary>
         ~MencoderBase()
         {
-            File.Delete(pathToMencoderExe);
+            //TODO dont use destructor
+            if (!customMencoderLocation)
+                File.Delete(pathToExternalMencoderBin);
         }
 
         /// <summary>
@@ -61,14 +70,39 @@ namespace MencoderSharp
         /// <returns></returns>
         public string getPathToMencoderBin()
         {
-            string path = Path.GetTempPath() + @"\mencoder" + Guid.NewGuid() + ".exe";
-            if (!File.Exists(path))
-                using (FileStream fsDst = new FileStream(path, FileMode.CreateNew, FileAccess.Write))
-                {
-                    byte[] bytes = MencoderSharp.Properties.Resources.mencoder;
-                    fsDst.Write(bytes, 0, bytes.Length);
-                }
-            return path;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                string tempDirectoryPath = Path.GetTempPath();
+                string mencoderFileName = "mencoder" + Guid.NewGuid() + ".exe";
+                string mencoderPath = Path.Combine(tempDirectoryPath, mencoderFileName);
+                if (!File.Exists(mencoderPath))
+                    ExtractBinaryFromManifest("MencoderSharp.mencoder.exe", tempDirectoryPath, mencoderFileName);
+                return mencoderPath;
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                customMencoderLocation = true;
+                const string wellKnownPathToMencoder = "/usr/bin/mencoder";
+                if (File.Exists(wellKnownPathToMencoder))
+                    return wellKnownPathToMencoder;
+                throw new FileNotFoundException("Mencoder was not found at " + wellKnownPathToMencoder + ". Install mendocer using apt install mencoder.");
+            }
+            else
+            {
+                throw new NotImplementedException("Sorry, only supporting linux and windows.");
+            }
+        }
+
+        private void ExtractBinaryFromManifest(string resourceName, string tempDirectoryPathpath, string mencoderFileName)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+
+            using (var stream = assembly.GetManifestResourceStream(resourceName))
+            using (var fileStream = File.Create(Path.Combine(tempDirectoryPathpath, mencoderFileName)))
+            {
+                stream.Seek(0, SeekOrigin.Begin);
+                stream.CopyTo(fileStream);
+            }
         }
     }
 }

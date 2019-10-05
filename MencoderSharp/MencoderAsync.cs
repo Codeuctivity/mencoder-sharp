@@ -58,33 +58,9 @@ namespace MencoderSharp
         /// </summary>
         /// <param name="source">The source.</param>
         /// <param name="destination">The destination.</param>
-        public void startEncodeAsync(Uri source, Uri destination)
+        public void startEncodeAsync(string source, string destination)
         {
             startEncodeAsync(source, destination, "-vf dsize=16/9,scale=-10:-1,harddup -of lavf -lavfopts format=mp4 -ovc x264 -sws 9 -x264encopts nocabac:level_idc=30:bframes=0:bitrate=512:threads=auto:turbo=1:global_header:threads=auto", "-oac mp3lame");
-        }
-
-        /// <summary>
-        /// returns imediatly after gots called
-        /// </summary>
-        /// <param name="source">Path to a file which can be interpreted by mencoder</param>
-        /// <param name="destination">Path to a file where the mencodet should get saved</param>
-        /// <param name="videoParameter">e.g. -ovc xvid -xvidencopts bitrate=800:threads=2:aspect=4/3 -vf scale -xy 720</param>
-        /// <param name="audioParameter">e.g. -oac mp3lame</param>
-        public void startEncodeAsync(Uri source, Uri destination, string videoParameter, string audioParameter)
-        {
-            MencoderParameters originalString = new MencoderParameters();
-            this.backgroundWorker1 = new BackgroundWorker();
-            this.backgroundWorker1.DoWork += new DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.RunWorkerCompleted += new RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
-            this.backgroundWorker1.ProgressChanged += new ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
-            this.Result = new mencoderResults();
-            originalString.source = source.OriginalString;
-            originalString.destination = destination.OriginalString;
-            originalString.audioParameter = audioParameter;
-            originalString.videoParameter = videoParameter;
-            this.backgroundWorker1.RunWorkerAsync(originalString);
-            this.backgroundWorker1.WorkerReportsProgress = true;
-            this.backgroundWorker1.WorkerSupportsCancellation = true;
         }
 
         /// <summary>
@@ -174,7 +150,7 @@ namespace MencoderSharp
             {
                 Process process = new Process();
                 process.ErrorDataReceived += new DataReceivedEventHandler(this.p_ErrorDataReceived);
-                process.StartInfo.FileName = this.pathToMencoderExe;
+                process.StartInfo.FileName = this.PathToExternalMencoderBin;
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.RedirectStandardError = true;
                 process.StartInfo.UseShellExecute = false;
