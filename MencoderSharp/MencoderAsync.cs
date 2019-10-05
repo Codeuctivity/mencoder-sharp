@@ -150,7 +150,7 @@ namespace MencoderSharp
             {
                 Process process = new Process();
                 process.ErrorDataReceived += new DataReceivedEventHandler(this.p_ErrorDataReceived);
-                process.StartInfo.FileName = this.PathToExternalMencoderBin;
+                process.StartInfo.FileName = base.PathToExternalMencoderBin;
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.RedirectStandardError = true;
                 process.StartInfo.UseShellExecute = false;

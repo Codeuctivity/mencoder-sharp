@@ -34,14 +34,14 @@ namespace MencoderSharp
         /// <summary>
         /// The path to mencoder exe
         /// </summary>
-        internal string pathToExternalMencoderBin;
+        public string PathToExternalMencoderBin { get; internal set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MencoderAsync"/> class.
         /// </summary>
         public MencoderBase()
         {
-            pathToExternalMencoderBin = getPathToMencoderBin();
+            PathToExternalMencoderBin = getPathToMencoderBin();
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace MencoderSharp
         public MencoderBase(string pathToExternalMencoderBin)
         {
             customMencoderLocation = true;
-            this.pathToExternalMencoderBin = pathToExternalMencoderBin;
+            PathToExternalMencoderBin = pathToExternalMencoderBin;
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace MencoderSharp
         {
             //TODO dont use destructor
             if (!customMencoderLocation)
-                File.Delete(pathToExternalMencoderBin);
+                File.Delete(PathToExternalMencoderBin);
         }
 
         /// <summary>
