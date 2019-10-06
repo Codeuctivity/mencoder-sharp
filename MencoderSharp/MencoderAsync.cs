@@ -78,10 +78,10 @@ namespace MencoderSharp
             backgroundWorker1.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BackgroundWorker1_RunWorkerCompleted);
             backgroundWorker1.ProgressChanged += new ProgressChangedEventHandler(BackgroundWorker1_ProgressChanged);
             Result = new MencoderResults();
-            mencoderParameter.source = source;
-            mencoderParameter.destination = destination;
-            mencoderParameter.audioParameter = audioParameter;
-            mencoderParameter.videoParameter = videoParameter;
+            mencoderParameter.Source = source;
+            mencoderParameter.Destination = destination;
+            mencoderParameter.AudioParameter = audioParameter;
+            mencoderParameter.VideoParameter = videoParameter;
             backgroundWorker1.RunWorkerAsync(mencoderParameter);
             backgroundWorker1.WorkerReportsProgress = true;
             backgroundWorker1.WorkerSupportsCancellation = true;
@@ -114,7 +114,7 @@ namespace MencoderSharp
             else
             {
                 var chrArray = new char[] { '(' };
-                if (int.TryParse(standardOut.Split(chrArray)[1].Substring(0, 2).Trim(), out int num) && num > progressReporting)
+                if (int.TryParse(standardOut.Split(chrArray)[1].Substring(0, 2).Trim(), out var num) && num > progressReporting)
                 {
                     worker.ReportProgress(num, standardOut);
                     return num;
@@ -132,12 +132,12 @@ namespace MencoderSharp
         {
             string standardOut;
             // Get the BackgroundWorker that raised this event.
-            BackgroundWorker backgroundWorker = sender as BackgroundWorker;
+            var backgroundWorker = sender as BackgroundWorker;
             // Assign the result of the computation
             // to the Result property of the DoWorkEventArgs
             // object. This is will be available to the
             // RunWorkerCompleted eventhandler.
-            MencoderParameters argument = (MencoderParameters)e.Argument;
+            var argument = (MencoderParameters)e.Argument;
 
             try
             {
@@ -150,14 +150,14 @@ namespace MencoderSharp
                     process.StartInfo.UseShellExecute = false;
                     process.StartInfo.CreateNoWindow = true;
                     var startInfo = process.StartInfo;
-                    string[] strArrays = new string[] { "\"", argument.source, "\" ", argument.videoParameter, " ", argument.audioParameter, " -o \"", argument.destination, "\"" };
+                    var strArrays = new string[] { "\"", argument.Source, "\" ", argument.VideoParameter, " ", argument.AudioParameter, " -o \"", argument.Destination, "\"" };
                     startInfo.Arguments = string.Concat(strArrays);
                     process.Start();
                     process.BeginErrorReadLine();
-                    int num = 0;
+                    var num = 0;
                     while (true)
                     {
-                        string standardOutLine = process.StandardOutput.ReadLine();
+                        var standardOutLine = process.StandardOutput.ReadLine();
                         standardOut = standardOutLine;
                         if (standardOutLine == null || backgroundWorker.CancellationPending)
                         {

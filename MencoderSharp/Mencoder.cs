@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace MencoderSharp
 {
@@ -34,18 +33,20 @@ namespace MencoderSharp
         /// <returns>True if task finishes without error</returns>
         public bool Mencode(string source, string destination, string videoParameter, string audioParameter)
         {
-            Process p = new Process();
-            p.StartInfo.FileName = PathToExternalMencoderBin;
-            //http://msdn.microsoft.com/de-de/library/system.diagnostics.processstartinfo.redirectstandardoutput.aspx
-            p.StartInfo.RedirectStandardOutput = false;
-            p.StartInfo.RedirectStandardError = true;
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.CreateNoWindow = true;
-            p.StartInfo.Arguments = "\"" + source + "\" " + videoParameter + " " + audioParameter + " -o \"" + destination + "\"";
-            p.Start();
-            standardError = p.StandardError.ReadToEnd();
-            p.WaitForExit();
-            return p.ExitCode.Equals(0);
+            using (var process = new Process())
+            {
+                process.StartInfo.FileName = PathToExternalMencoderBin;
+                //http://msdn.microsoft.com/de-de/library/system.diagnostics.processstartinfo.redirectstandardoutput.aspx
+                process.StartInfo.RedirectStandardOutput = false;
+                process.StartInfo.RedirectStandardError = true;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.Arguments = "\"" + source + "\" " + videoParameter + " " + audioParameter + " -o \"" + destination + "\"";
+                process.Start();
+                standardError = process.StandardError.ReadToEnd();
+                process.WaitForExit();
+                return process.ExitCode.Equals(0);
+            }
         }
     }
 }

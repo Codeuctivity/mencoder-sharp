@@ -26,10 +26,13 @@ Features:
 Sample:
 
 ```csharp
-MencoderSharp.MencoderAsync mencoderAsync = new MencoderSharp.MencoderAsync();
+var mencoderAsync = new MencoderSharp.MencoderAsync();
+
 private void buttonStart_Click(object sender, EventArgs e)
 {
-    mencoderAsync.startEncodeAsync(@"c:\inputVideo.wmv", @"c:\outputVideo.mp4");
+    buttonStart.Enabled = false;
+    progressBar1.Visible = true;
+    mencoderAsync.StartEncodeAsync(labelSource.Text, labelDestinationPath.Text, textBoxVideoParameter.Text, textBoxAudioParamter.Text);
 }
 
 private void MencoderSharpDemo_Load(object sender, EventArgs e)
@@ -40,11 +43,11 @@ private void MencoderSharpDemo_Load(object sender, EventArgs e)
 
 private void mencoder_Finished(object sender, EventArgs e)
 {
-    richTextBox1.Text = mencoderAsync.result;
+    richTextBox1.Text = mencoderAsync.Result.StandardOutput;
 }
 private void mencoder_Progress(object sender, EventArgs e)
 {
-    progressBar1.Value = mencoderAsync.progress;
+    progressBar1.Value = mencoderAsync.Progress;
 }
 ```
 

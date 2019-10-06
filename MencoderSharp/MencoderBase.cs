@@ -14,22 +14,13 @@ namespace MencoderSharp
     }
 
     /// <summary>
-    /// Mencoderparamters
-    /// </summary>
-    internal struct MencoderParameters
-    {
-        public string source;
-        public string destination;
-        public string videoParameter;
-        public string audioParameter;
-    }
-
-    /// <summary>
     /// Baseclass for async and syncmencodercalls
     /// </summary>
-    public abstract class MencoderBase
+    public abstract class MencoderBase : IDisposable
     {
         private bool customMencoderLocation;
+        private readonly object lockObject = new object();
+        private bool isInitilized;
 
         /// <summary>
         /// The path to mencoder exe
@@ -55,37 +46,42 @@ namespace MencoderSharp
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="MencoderAsync"/> class.
-        /// </summary>
-        ~MencoderBase()
-        {
-            //TODO dont use destructor
-            if (!customMencoderLocation)
-                File.Delete(PathToExternalMencoderBin);
-        }
-
-        /// <summary>
         /// Gets the path to mencoder bin.
         /// </summary>
         /// <returns></returns>
-        public string GetPathToMencoderBin()
+        private string GetPathToMencoderBin()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                string tempDirectoryPath = Path.GetTempPath();
-                string mencoderFileName = "mencoder" + Guid.NewGuid() + ".exe";
-                string mencoderPath = Path.Combine(tempDirectoryPath, mencoderFileName);
-                if (!File.Exists(mencoderPath))
-                    ExtractBinaryFromManifest("MencoderSharp.mencoder.exe", tempDirectoryPath, mencoderFileName);
-                return mencoderPath;
+                if (isInitilized)
+                {
+                    return PathToExternalMencoderBin;
+                }
+
+                lock (lockObject)
+                {
+                    isInitilized = true;
+
+                    var tempDirectoryPath = Path.GetTempPath();
+                    var mencoderFileName = "mencoder" + Guid.NewGuid() + ".exe";
+                    var mencoderPath = Path.Combine(tempDirectoryPath, mencoderFileName);
+                    if (!File.Exists(mencoderPath))
+                    {
+                        ExtractBinaryFromManifest("MencoderSharp.mencoder.exe", tempDirectoryPath, mencoderFileName);
+                    }
+                    return mencoderPath;
+                }
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 customMencoderLocation = true;
                 const string wellKnownPathToMencoder = "/usr/bin/mencoder";
                 if (File.Exists(wellKnownPathToMencoder))
+                {
                     return wellKnownPathToMencoder;
-                throw new FileNotFoundException("Mencoder was not found at " + wellKnownPathToMencoder + ". Install mendocer using apt install mencoder.");
+                }
+
+                throw new FileNotFoundException("Mencoder was not found at " + wellKnownPathToMencoder + ". Install mencoder using 'apt install mencoder'.");
             }
             else
             {
@@ -103,6 +99,46 @@ namespace MencoderSharp
                 stream.Seek(0, SeekOrigin.Begin);
                 stream.CopyTo(fileStream);
             }
+        }
+
+        private bool disposedValue = false;
+
+        /// <summary>
+        /// Disposes the mencoder bin
+        /// </summary>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                }
+
+                if (!customMencoderLocation && File.Exists(PathToExternalMencoderBin))
+                {
+                    File.Delete(PathToExternalMencoderBin);
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        /// <summary>
+        /// Finalizes an instance of the <see cref="MencoderAsync"/> class.
+        /// </summary>
+        ~MencoderBase()
+        {
+            Dispose(false);
+        }
+
+        /// <summary>
+        /// Disposes the mencoder bin
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+
+            GC.SuppressFinalize(this);
         }
     }
 }
