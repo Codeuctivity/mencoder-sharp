@@ -25,8 +25,8 @@ namespace MencoderSharpTest
             asyncTaskRunning = false;
             using (var mencoderAsync = new MencoderSharp.MencoderAsync())
             {
-                mencoderAsync.Finished += new EventHandler(Mencoder_Finished);
-                mencoderAsync.ProgressChanged += new EventHandler(Mencoder_Progress);
+                mencoderAsync.Finished += Mencoder_Finished;
+                mencoderAsync.ProgressChanged += Mencoder_Progress;
                 mencoderAsync.StartEncodeAsync("./TestFiles/HelloWorld.avi", "./TestOutput.mp4");
                 asyncTaskRunning = true;
                 while (asyncTaskRunning)
@@ -44,8 +44,8 @@ namespace MencoderSharpTest
             asyncTaskRunning = false;
             using (var mencoderAsync = new MencoderSharp.MencoderAsync())
             {
-                mencoderAsync.Finished += new EventHandler(Mencoder_Finished);
-                mencoderAsync.ProgressChanged += new EventHandler(Mencoder_Progress);
+                mencoderAsync.Finished += Mencoder_Finished;
+                mencoderAsync.ProgressChanged += Mencoder_Progress;
                 mencoderAsync.StartEncodeAsync("./TestFiles/small.mp4", "./SmallTestOutput.mp4");
                 asyncTaskRunning = true;
                 while (asyncTaskRunning)

@@ -10,7 +10,7 @@ namespace MencoderSharp
         /// <summary>
         /// The standard error
         /// </summary>
-        public string standardError;
+        public string StandardError { get; private set; }
 
         /// <summary>
         /// Mencoders the specified source.
@@ -43,7 +43,7 @@ namespace MencoderSharp
                 process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.Arguments = "\"" + source + "\" " + videoParameter + " " + audioParameter + " -o \"" + destination + "\"";
                 process.Start();
-                standardError = process.StandardError.ReadToEnd();
+                StandardError = process.StandardError.ReadToEnd();
                 process.WaitForExit();
                 return process.ExitCode.Equals(0);
             }

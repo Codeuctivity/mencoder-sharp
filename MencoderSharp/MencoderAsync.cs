@@ -17,7 +17,7 @@ namespace MencoderSharp
         /// <summary>
         /// Contains exitcode of mencoder and everything from standarderror
         /// </summary>
-        public MencoderResults Result;
+        public MencoderResults Result { get; private set; }
 
         //Backgroundworkerdocs:
         //http://msdn.microsoft.com/de-de/library/system.componentmodel.backgroundworker.aspx
@@ -26,7 +26,7 @@ namespace MencoderSharp
         /// <summary>
         /// The remember last line
         /// </summary>
-        private string rememberLastLine;
+        private string rememberLastLine = string.Empty;
 
         /// <summary>
         /// The standard error

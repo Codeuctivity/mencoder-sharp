@@ -80,8 +80,8 @@ namespace MencoderSharpDemoImageToMovie
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            mencoderAsync.Finished += new EventHandler(mencoder_Finished);
-            mencoderAsync.ProgressChanged += new EventHandler(mencoder_Progress);
+            mencoderAsync.Finished += mencoder_Finished;
+            mencoderAsync.ProgressChanged += mencoder_Progress;
         }
 
         /// <summary>

@@ -19,9 +19,10 @@ Features:
 * Synchron or Asynchron executing
 * No Gui-Freezing in Asyncmode
 * Progress recognition of mencoder
-* Works on Win32 & Win64  
+* Comes with an mencoder bin that works on win32 & win64
+* Can make use of any mencoder bin in place (Windows & Linux)
 * mp4 / h.264 works fine
-* Streaming source from ftp, http, ...
+* Streaming source from ftp, http, ... (That was the reason I created this project)
 
 Sample:
 
@@ -37,8 +38,8 @@ private void buttonStart_Click(object sender, EventArgs e)
 
 private void MencoderSharpDemo_Load(object sender, EventArgs e)
 {
-    mencoderAsync.Finished += new EventHandler(this.mencoder_Finished);
-    mencoderAsync.ProgressChanged += new EventHandler(this.mencoder_Progress);
+    mencoderAsync.Finished += this.mencoder_Finished;
+    mencoderAsync.ProgressChanged += this.mencoder_Progress;
 }
 
 private void mencoder_Finished(object sender, EventArgs e)

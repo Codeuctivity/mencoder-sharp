@@ -69,7 +69,6 @@ namespace MencoderSharpDemo
             buttonStart.Enabled = false;
             progressBar1.Visible = true;
             mencoderAsync.StartEncodeAsync(labelSource.Text, labelDestinationPath.Text, textBoxVideoParameter.Text, textBoxAudioParamter.Text);
-            //mencoderAsync.startEncodeAsync(new Uri(labelSource.Text), new Uri(labelDestinationPath.Text));
         }
 
         /// <summary>
@@ -79,8 +78,8 @@ namespace MencoderSharpDemo
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void MencoderSharpDemo_Load(object sender, EventArgs e)
         {
-            mencoderAsync.Finished += new EventHandler(mencoder_Finished);
-            mencoderAsync.ProgressChanged += new EventHandler(mencoder_Progress);
+            mencoderAsync.Finished += mencoder_Finished;
+            mencoderAsync.ProgressChanged += mencoder_Progress;
         }
 
         /// <summary>
