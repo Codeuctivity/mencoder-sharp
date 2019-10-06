@@ -35,7 +35,7 @@ private void buttonStart_Click(object sender, EventArgs e)
 private void MencoderSharpDemo_Load(object sender, EventArgs e)
 {
     mencoderAsync.Finished += new EventHandler(this.mencoder_Finished);
-    mencoderAsync.Progress += new EventHandler(this.mencoder_Progress);
+    mencoderAsync.ProgressChanged += new EventHandler(this.mencoder_Progress);
 }
 
 private void mencoder_Finished(object sender, EventArgs e)
@@ -48,6 +48,4 @@ private void mencoder_Progress(object sender, EventArgs e)
 }
 ```
 
-See http://debianisttoll.blogspot.com/2013/03/create-mp4-with-c.html to see how to create mp4s with mencodersharp.
-
-Old Repository: http://code.google.com/p/mencoder-sharp
+Old Repository: <http://code.google.com/p/mencoder-sharp>

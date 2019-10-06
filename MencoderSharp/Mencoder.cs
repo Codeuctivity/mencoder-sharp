@@ -43,15 +43,9 @@ namespace MencoderSharp
             p.StartInfo.CreateNoWindow = true;
             p.StartInfo.Arguments = "\"" + source + "\" " + videoParameter + " " + audioParameter + " -o \"" + destination + "\"";
             p.Start();
-            //nur eins darf synchron gelesen werden!! http://msdn.microsoft.com/de-de/library/system.diagnostics.processstartinfo.redirectstandarderror.aspx
             standardError = p.StandardError.ReadToEnd();
             p.WaitForExit();
-            if (p.ExitCode.Equals(0))
-                return true;
-            return false;
+            return p.ExitCode.Equals(0);
         }
-        // Howto create a Async Method that throws events when finished
-        //http://msdn.microsoft.com/en-us/library/e7a34yad.aspx
-        // The method to be executed asynchronously.
     }
 }

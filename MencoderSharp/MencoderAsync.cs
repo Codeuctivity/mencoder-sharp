@@ -12,12 +12,12 @@ namespace MencoderSharp
         /// <summary>
         /// Contains prgress parsed from mencoder
         /// </summary>
-        public int progress;
+        public int Progress { get; private set; }
 
         /// <summary>
         /// Contains exitcode of mencoder and everything from standarderror
         /// </summary>
-        public mencoderResults Result;
+        public MencoderResults Result;
 
         //Backgroundworkerdocs:
         //http://msdn.microsoft.com/de-de/library/system.componentmodel.backgroundworker.aspx
@@ -43,7 +43,7 @@ namespace MencoderSharp
         /// <summary>
         /// Fires when progress has changed (progress and stdOutput have changed)
         /// </summary>
-        public event EventHandler Progress;
+        public event EventHandler ProgressChanged;
 
         /// <summary>
         /// cancels the running encodingprocess
@@ -77,7 +77,7 @@ namespace MencoderSharp
             this.backgroundWorker1.DoWork += new DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.RunWorkerCompleted += new RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             this.backgroundWorker1.ProgressChanged += new ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
-            this.Result = new mencoderResults();
+            this.Result = new MencoderResults();
             mencoderParameter.source = source;
             mencoderParameter.destination = destination;
             mencoderParameter.audioParameter = audioParameter;
@@ -105,9 +105,9 @@ namespace MencoderSharp
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected virtual void OnProgress(EventArgs e)
         {
-            if (Progress != null)
+            if (ProgressChanged != null)
             {
-                Progress(this, e);
+                ProgressChanged(this, e);
             }
         }
 
@@ -119,12 +119,12 @@ namespace MencoderSharp
             }
             else
             {
-                int num = 0;
-                char[] chrArray = new char[] { '(' };
+                int num;
+                var chrArray = new char[] { '(' };
                 if (int.TryParse(standardOut.Split(chrArray)[1].Substring(0, 2).Trim(), out num) && num > progressReporting)
                 {
-                    progressReporting = num;
-                    worker.ReportProgress(progressReporting, standardOut);
+                    worker.ReportProgress(num, standardOut);
+                    return num;
                 }
             }
             return progressReporting;
@@ -173,7 +173,7 @@ namespace MencoderSharp
                 }
                 if (backgroundWorker.CancellationPending)
                 {
-                    mencoderResults mencoderResult = new mencoderResults()
+                    var mencoderResult = new MencoderResults
                     {
                         Exitcode = 99,
                         StandardError = this.standardError,
@@ -188,7 +188,7 @@ namespace MencoderSharp
                 else
                 {
                     process.WaitForExit();
-                    mencoderResults mencoderResult1 = new mencoderResults()
+                    var mencoderResult1 = new MencoderResults
                     {
                         Exitcode = process.ExitCode,
                         StandardError = this.standardError,
@@ -201,7 +201,7 @@ namespace MencoderSharp
             catch (Exception exception1)
             {
                 Exception exception = exception1;
-                mencoderResults mencoderResult2 = new mencoderResults()
+                var mencoderResult2 = new MencoderResults
                 {
                     Exitcode = 99,
                     StandardError = this.standardError,
@@ -220,8 +220,8 @@ namespace MencoderSharp
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             string userState = (string)e.UserState;
-            this.progress = e.ProgressPercentage;
-            if (this.progress == 0)
+            this.Progress = e.ProgressPercentage;
+            if (this.Progress == 0)
             {
                 MencoderAsync mencoderAsync = this;
                 mencoderAsync.standardError = string.Concat(mencoderAsync.standardError, userState, "\n");
@@ -247,7 +247,7 @@ namespace MencoderSharp
             {
                 throw e.Error;
             }
-            Result = (mencoderResults)e.Result;
+            Result = (MencoderResults)e.Result;
             OnFinished(e);
         }
 

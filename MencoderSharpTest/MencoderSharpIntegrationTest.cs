@@ -15,22 +15,16 @@ namespace MencoderSharpTest
             Assert.True(result);
         }
 
-        private static string getDirectoryOfAssembly()
-        {
-            var location = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-            return location;
-        }
-
         private bool asyncTaskRunning;
 
         [Fact]
         public void ShouldStartEncodeAsync()
         {
+            progress = 0;
             asyncTaskRunning = false;
             MencoderSharp.MencoderAsync mencoderAsync = new MencoderSharp.MencoderAsync();
             mencoderAsync.Finished += new EventHandler(this.mencoder_Finished);
-            mencoderAsync.Progress += new EventHandler(this.mencoder_Progress);
+            mencoderAsync.ProgressChanged += new EventHandler(this.mencoder_Progress);
             mencoderAsync.startEncodeAsync("./TestFiles/HelloWorld.avi", "./TestOutput.mp4");
             asyncTaskRunning = true;
             while (asyncTaskRunning)
@@ -47,7 +41,7 @@ namespace MencoderSharpTest
             asyncTaskRunning = false;
             MencoderSharp.MencoderAsync mencoderAsync = new MencoderSharp.MencoderAsync();
             mencoderAsync.Finished += new EventHandler(this.mencoder_Finished);
-            mencoderAsync.Progress += new EventHandler(this.mencoder_Progress);
+            mencoderAsync.ProgressChanged += new EventHandler(this.mencoder_Progress);
             mencoderAsync.startEncodeAsync("./TestFiles/small.mp4", "./SmallTestOutput.mp4");
             asyncTaskRunning = true;
             while (asyncTaskRunning)
@@ -58,12 +52,12 @@ namespace MencoderSharpTest
             Assert.True(mencoderAsync.Result.ExecutionWasSuccessfull, mencoderAsync.Result.StandardError);
         }
 
-        private int progress = 0;
+        private int progress;
 
         private void mencoder_Progress(object sender, EventArgs e)
         {
             var infos = (MencoderSharp.MencoderAsync)sender;
-            progress = infos.progress;
+            progress = infos.Progress;
         }
 
         private void mencoder_Finished(object sender, EventArgs e)
