@@ -9,9 +9,9 @@
     <Description>You need to decode, encode or do some processing stuff on multimedia streams, files or whatever mencoder can read? You want to implement your solution in C# or some other .net language? Here you are! This is an assembly which wrappes calls to e.g. reencode some source with a other codec.</Description>
     <Copyright>Copyright ©  2010 GPLv3</Copyright>
     <Deterministic>false</Deterministic>
-    <Version>2.0.2</Version>
-    <AssemblyVersion>2.0.0.2</AssemblyVersion>
-    <FileVersion>2.0.0.2</FileVersion>
+    <Version>2.0.1</Version>
+    <AssemblyVersion>2.0.0.1</AssemblyVersion>
+    <FileVersion>2.0.0.1</FileVersion>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <Authors>Stefan Seeland</Authors>
     <PackageIconUrl>https://avatars3.githubusercontent.com/u/8453155?v=2&amp;s=200</PackageIconUrl>

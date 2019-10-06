@@ -113,7 +113,7 @@ namespace MencoderSharp
             }
             else
             {
-                var chrArray = new char[] { '(' };
+                var chrArray = new[] { '(' };
                 if (int.TryParse(standardOut.Split(chrArray)[1].Substring(0, 2).Trim(), out var num) && num > progressReporting)
                 {
                     worker.ReportProgress(num, standardOut);

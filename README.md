@@ -1,6 +1,6 @@
 # mencoder-sharp
 
-[![Build status](https://ci.appveyor.com/api/projects/status/xmx1t9ieuxqjeeh8?svg=true)](https://ci.appveyor.com/project/stesee/mencoder-sharp)
+[![Build status](https://ci.appveyor.com/api/projects/status/xmx1t9ieuxqjeeh8?svg=true)](https://ci.appveyor.com/project/stesee/mencoder-sharp) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/38787d123f9749ee9debbcf9ce9e8913)](https://www.codacy.com/manual/stesee/mencoder-sharp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Codeuctivity/mencoder-sharp&amp;utm_campaign=Badge_Grade)
 
 You need to decode, encode or do some processing stuff on multimedia streams, files or whatever mencoder can read? You want to implement your solution in C# or some other .net language? Here you are! This is an assembly which wrappes calls to e.g. reencode some source with a other codec.
 
@@ -16,7 +16,7 @@ Watch the [demo](https://github.com/stesee/mencoder-sharp/releases/download/unta
 
 Features:
 
-* Synchron or Asynchron executing
+* Sync or Async execution
 * No Gui-Freezing in Asyncmode
 * Progress recognition of mencoder
 * Comes with an mencoder bin that works on win32 & win64
