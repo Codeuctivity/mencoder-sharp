@@ -16,7 +16,7 @@
         public string Destination { get; set; }
 
         /// <summary>
-        /// Mencoder specific paramters, e.g. "-vf dsize=16/9,scale=-10:-1,harddup -of lavf -lavfopts format=mp4 -ovc x264 -sws 9 -x264encopts nocabac:level_idc=30:bframes=0:bitrate=512:threads=auto:turbo=1:global_header:threads=auto"
+        /// Mencoder specific paramters, e.g. "-vf dsize=16/9,scale=-10:-1,harddup -of lavf -lavfopts format=mp4 -ovc x264 -sws 9 -x264encopts nocabac:level_idc=30:bframes=0:bitrate=512:threads=auto:global_header:threads=auto"
         /// </summary>
         public string VideoParameter { get; set; }
 

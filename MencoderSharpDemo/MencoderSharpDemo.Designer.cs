@@ -107,7 +107,7 @@
             this.textBoxVideoParameter.Size = new System.Drawing.Size(377, 20);
             this.textBoxVideoParameter.TabIndex = 5;
             this.textBoxVideoParameter.Text = "-vf dsize=16/9,scale=-10:-1,harddup -of lavf -lavfopts format=mp4 -ovc x264 -sws " +
-    "9 -x264encopts nocabac:level_idc=30:bframes=0:bitrate=512:threads=auto:turbo=1:g" +
+    "9 -x264encopts nocabac:level_idc=30:bframes=0:bitrate=512:threads=auto:g" +
     "lobal_header:threads=auto";
             // 
             // label1

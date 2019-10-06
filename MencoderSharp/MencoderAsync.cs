@@ -60,7 +60,7 @@ namespace MencoderSharp
         /// <param name="destination">The destination.</param>
         public void StartEncodeAsync(string source, string destination)
         {
-            StartEncodeAsync(source, destination, "-vf dsize=16/9,scale=-10:-1,harddup -of lavf -lavfopts format=mp4 -ovc x264 -sws 9 -x264encopts nocabac:level_idc=30:bframes=0:bitrate=512:threads=auto:turbo=1:global_header:threads=auto", "-oac mp3lame");
+            StartEncodeAsync(source, destination, "-vf dsize=16/9,scale=-10:-1,harddup -of lavf -lavfopts format=mp4 -ovc x264 -sws 9 -x264encopts nocabac:level_idc=30:bframes=0:bitrate=512:threads=auto:global_header:threads=auto", "-oac mp3lame");
         }
 
         /// <summary>
