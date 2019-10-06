@@ -19,9 +19,9 @@ namespace MencoderSharp
         /// <param name="source">The source.</param>
         /// <param name="destination">The destination.</param>
         /// <returns></returns>
-        public bool encodeToMp4(string source, string destination)
+        public bool EncodeToMp4(string source, string destination)
         {
-            return mencoder(source, destination, "-vf dsize=16/9,scale=-10:-1,harddup -of lavf -lavfopts format=mp4 -ovc x264 -sws 9 -x264encopts nocabac:level_idc=30:bframes=0:bitrate=512:threads=auto:turbo=1:global_header:threads=auto", "-oac mp3lame");
+            return Mencode(source, destination, "-vf dsize=16/9,scale=-10:-1,harddup -of lavf -lavfopts format=mp4 -ovc x264 -sws 9 -x264encopts nocabac:level_idc=30:bframes=0:bitrate=512:threads=auto:turbo=1:global_header:threads=auto", "-oac mp3lame");
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace MencoderSharp
         /// <param name="videoParameter">The video parameter.</param>
         /// <param name="audioParameter">The audio parameter.</param>
         /// <returns>True if task finishes without error</returns>
-        public bool mencoder(string source, string destination, string videoParameter, string audioParameter)
+        public bool Mencode(string source, string destination, string videoParameter, string audioParameter)
         {
             Process p = new Process();
             p.StartInfo.FileName = PathToExternalMencoderBin;

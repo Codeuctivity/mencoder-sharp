@@ -11,7 +11,7 @@ namespace MencoderSharpTest
         public void ShouldEncodeToH264Mp4()
         {
             var mencoderSync = new MencoderSharp.Mencoder();
-            var result = mencoderSync.encodeToMp4("./TestFiles/HelloWorld.avi", "./TestOutput.mp4");
+            var result = mencoderSync.EncodeToMp4("./TestFiles/HelloWorld.avi", "./TestOutput.mp4");
             Assert.True(result);
         }
 
@@ -25,7 +25,7 @@ namespace MencoderSharpTest
             MencoderSharp.MencoderAsync mencoderAsync = new MencoderSharp.MencoderAsync();
             mencoderAsync.Finished += new EventHandler(this.mencoder_Finished);
             mencoderAsync.ProgressChanged += new EventHandler(this.mencoder_Progress);
-            mencoderAsync.startEncodeAsync("./TestFiles/HelloWorld.avi", "./TestOutput.mp4");
+            mencoderAsync.StartEncodeAsync("./TestFiles/HelloWorld.avi", "./TestOutput.mp4");
             asyncTaskRunning = true;
             while (asyncTaskRunning)
             {
@@ -42,7 +42,7 @@ namespace MencoderSharpTest
             MencoderSharp.MencoderAsync mencoderAsync = new MencoderSharp.MencoderAsync();
             mencoderAsync.Finished += new EventHandler(this.mencoder_Finished);
             mencoderAsync.ProgressChanged += new EventHandler(this.mencoder_Progress);
-            mencoderAsync.startEncodeAsync("./TestFiles/small.mp4", "./SmallTestOutput.mp4");
+            mencoderAsync.StartEncodeAsync("./TestFiles/small.mp4", "./SmallTestOutput.mp4");
             asyncTaskRunning = true;
             while (asyncTaskRunning)
             {

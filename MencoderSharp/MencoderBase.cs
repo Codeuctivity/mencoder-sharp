@@ -41,7 +41,7 @@ namespace MencoderSharp
         /// </summary>
         public MencoderBase()
         {
-            PathToExternalMencoderBin = getPathToMencoderBin();
+            PathToExternalMencoderBin = GetPathToMencoderBin();
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace MencoderSharp
         /// Gets the path to mencoder bin.
         /// </summary>
         /// <returns></returns>
-        public string getPathToMencoderBin()
+        public string GetPathToMencoderBin()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
