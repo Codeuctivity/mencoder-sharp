@@ -175,6 +175,7 @@ namespace MencoderSharp
                             StandardOutput = standardOut
                         };
                         e.Result = mencoderResult;
+                        process.Kill();
                         process.Close();
                         process.CancelErrorRead();
                     }
