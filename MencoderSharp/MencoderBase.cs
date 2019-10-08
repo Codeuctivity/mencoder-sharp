@@ -126,7 +126,23 @@ namespace MencoderSharp
                             Task.Delay(5).Wait();
                         }
                     }
-                    File.Delete(PathToExternalMencoderBin);
+                    while (File.Exists(PathToExternalMencoderBin))
+                    {
+                        var timeout = 0;
+                        try
+                        {
+                            File.Delete(PathToExternalMencoderBin);
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            if (timeout > 100)
+                            {
+                                throw;
+                            }
+                            timeout++;
+                            Task.Delay(5).Wait();
+                        }
+                    }
                 }
 
                 disposedValue = true;
