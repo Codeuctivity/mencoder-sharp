@@ -28,8 +28,8 @@ namespace MencoderSharp
         /// </summary>
         /// <param name="source">The source.</param>
         /// <param name="destination">The destination.</param>
-        /// <param name="videoParameter">The video parameter.</param>
-        /// <param name="audioParameter">The audio parameter.</param>
+        /// <param name="videoParameter">The video parameter e.g. "-vf dsize=16/9,scale=-10:-1,harddup -of lavf -lavfopts format=mp4 -ovc x264 -sws 9 -x264encopts nocabac:level_idc=30:bframes=0:bitrate=512:threads=auto:global_header:threads=auto"</param>
+        /// <param name="audioParameter">The audio parameter e.g. "-oac mp3lame"</param>
         /// <returns>True if task finishes without error</returns>
         public bool Mencode(string source, string destination, string videoParameter, string audioParameter)
         {

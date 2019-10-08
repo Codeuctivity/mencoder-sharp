@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace MencoderSharp
 {
@@ -116,6 +118,14 @@ namespace MencoderSharp
 
                 if (!customMencoderLocation && File.Exists(PathToExternalMencoderBin))
                 {
+                    foreach (var process in Process.GetProcessesByName(Path.GetFileNameWithoutExtension(PathToExternalMencoderBin)))
+                    {
+                        if (!process.HasExited)
+                        {
+                            process.Kill();
+                            Task.Delay(5).Wait();
+                        }
+                    }
                     File.Delete(PathToExternalMencoderBin);
                 }
 
